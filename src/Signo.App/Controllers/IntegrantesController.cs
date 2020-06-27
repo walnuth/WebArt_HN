@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +54,7 @@ namespace Signo.App.Controllers
 
         public async Task<IActionResult> Details(Guid id)
         {
-           var integrante = await _integranteRepository.ObterPorId(id);
+            var integrante = await _integranteRepository.ObterPorId(id);
 
             if (integrante == null)
             {
@@ -72,27 +75,60 @@ namespace Signo.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IntegranteViewModel integrante)
+        public async Task<IActionResult> Create(IntegranteViewModel integranteViewModel)
         {
             if (ModelState.IsValid)
             {
-                var integranteMapped = _mapper.Map<Integrante>(integrante);
-
                 IdentityUser usr = await GetCurrentUserAsync();
 
-                integranteMapped.Id = Guid.Parse(usr.Id);
 
+                var imgPrefixo = Guid.Parse(usr.Id) + "_Foto";
+                var imgPrefixo2 = Guid.Parse(usr.Id) + "_Ass";
+
+
+                if (!await UploadArquivoImgFoto(integranteViewModel.ImgFotoUpload, imgPrefixo))
+                {
+                    return View(integranteViewModel);
+                }
+                integranteViewModel.ImgFoto =
+                    imgPrefixo + Path.GetExtension(integranteViewModel.ImgSignUpload.FileName);
+
+
+
+                if (!await UploadArquivoSignFoto(integranteViewModel.ImgSignUpload, imgPrefixo2))
+                {
+                    return View(integranteViewModel);
+                }
+                integranteViewModel.ImgSign =
+                    imgPrefixo2 + Path.GetExtension(integranteViewModel.ImgSignUpload.FileName);
+
+
+
+
+
+
+
+
+
+
+
+
+
+                var integranteMapped = _mapper.Map<Integrante>(integranteViewModel);
+                integranteMapped.Id = Guid.Parse(usr.Id);
                 await _integranteRepository.Adicionar(integranteMapped);
+
+                await _userManager.AddClaimAsync(usr, new Claim("ptw", "emitente"));
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(integrante);
+            return View(integranteViewModel);
         }
 
 
         public async Task<IActionResult> Edit(Guid id)
         {
-          
+
             var integrante = await _integranteRepository.ObterPorId(id);
             var integranteMapped = _mapper.Map<IntegranteViewModel>(integrante);
 
@@ -103,7 +139,7 @@ namespace Signo.App.Controllers
             return View(integranteMapped);
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, IntegranteViewModel integrante)
@@ -117,7 +153,7 @@ namespace Signo.App.Controllers
             {
                 try
                 {
-                    
+
                     var integranteMapped = _mapper.Map<Integrante>(integrante);
                     await _integranteRepository.Atualizar(integranteMapped);
                 }
@@ -153,7 +189,7 @@ namespace Signo.App.Controllers
             return View(integranteMapped);
         }
 
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -167,24 +203,68 @@ namespace Signo.App.Controllers
         private bool IntegranteExists(Guid id)
         {
 
-           var ex= _integranteRepository.Buscar(x => x.Id == id);
+            var ex = _integranteRepository.Buscar(x => x.Id == id);
 
-           if (ex==null) {
-               return false;
-           }
+            if (ex == null)
+            {
+                return false;
+            }
 
-           return true;
+            return true;
         }
 
 
 
+        // Metodos Privados///////////////////////////////////
 
-        [HttpGet]
-        public async Task<string> GetCurrentUserId()
-        {
-            IdentityUser usr = await GetCurrentUserAsync();
-            return usr?.Id;
-        }
         private Task<IdentityUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
+
+
+        private async Task<bool> UploadArquivoImgFoto(IFormFile arquivo, string imgPrefixo)
+        {
+            if (arquivo.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgFotos",
+                imgPrefixo + Path.GetExtension(arquivo.FileName));     /*arquivo.FileName);*/
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
+                return false;
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await arquivo.CopyToAsync(stream);
+            }
+
+            return true;
+        }
+
+
+
+        private async Task<bool> UploadArquivoSignFoto(IFormFile arquivo, string imgPrefixo2)
+        {
+            if (arquivo.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgAss",
+                imgPrefixo2 + Path.GetExtension(arquivo.FileName));     /*arquivo.FileName);*/
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
+                return false;
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await arquivo.CopyToAsync(stream);
+            }
+
+            return true;
+        }
+        
+      
     }
 }

@@ -22,4 +22,10 @@
     <ProjectReference Include="..\Signo.Data\Signo.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\imagens\" />
+    <Folder Include="wwwroot\imgFotos\" />
+    <Folder Include="wwwroot\imgAss\" />
+  </ItemGroup>
+
 </Project>

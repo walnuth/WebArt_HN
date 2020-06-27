@@ -7,11 +7,14 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-info" asp-action="Create">Inserir Integrante</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-hover" id="tabelaIntegrante">
+    <thead class="thead-dark" id="TheadInt">
         <tr>
+            <th>
+
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
@@ -30,18 +33,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.Empresa)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Endereco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImgFoto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImgSign)
-            </th>
+
+
             <th>
                 @Html.DisplayNameFor(model => model.Nacionalidade)
             </th>
@@ -54,9 +47,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Genero)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Admissao)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.DoB)
             </th>
@@ -66,7 +57,10 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr style="font-size: small">
+                <td>
+                    <img src="~/imgFotos/@item.ImgFoto" alt="@item.ImgFoto" style="width: 30px; height: 30px" />
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
@@ -85,18 +79,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Empresa)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Endereco)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImgFoto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImgSign)
-                </td>
+
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Nacionalidade)
                 </td>
@@ -109,16 +93,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Genero)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Admissao)
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.DoB)
                 </td>
+                <td class="text-right">
+                    <a class="btn btn-info" asp-controller="Integrantes" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
+                </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-warning" asp-controller="Integrantes" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
+                    <a class="btn btn-danger" asp-controller="Integrantes" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
                 </td>
             </tr>
         }

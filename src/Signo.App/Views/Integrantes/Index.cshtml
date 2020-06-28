@@ -9,102 +9,105 @@
 <p>
     <a class="btn btn-info" asp-action="Create">Inserir Integrante</a>
 </p>
-<table class="table table-hover" id="tabelaIntegrante">
-    <thead class="thead-dark" id="TheadInt">
-        <tr>
-            <th>
 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Unidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Matricula)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FuncaoBordo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FuncaoContrato)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Empresa)
-            </th>
+<div id="divInt">
+    <table class="table table-hover" id="tabelaIntegrante">
+        <thead class="thead-dark" id="TheadInt">
+            <tr>
+                <th>
 
-
-            <th>
-                @Html.DisplayNameFor(model => model.Nacionalidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Admin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genero)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.DoB)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr style="font-size: small">
-                <td>
-                    <img src="~/imgFotos/@item.ImgFoto" alt="@item.ImgFoto" style="width: 30px; height: 30px" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Unidade)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Matricula)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FuncaoBordo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FuncaoContrato)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Empresa)
-                </td>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Unidade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Matricula)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FuncaoBordo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FuncaoContrato)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Empresa)
+                </th>
 
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nacionalidade)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Admin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ativo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genero)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nacionalidade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Admin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ativo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Genero)
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoB)
-                </td>
-                <td class="text-right">
-                    <a class="btn btn-info" asp-controller="Integrantes" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
-                    <a class="btn btn-dark" asp-controller="Integrantes" asp-action="EditClaims" asp-route-id="@item.Id"><spam class="fa fa-lock-open"></spam></a>
-               
-                    <a class="btn btn-warning" asp-controller="Integrantes" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
-                    <a class="btn btn-danger" asp-controller="Integrantes" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.DoB)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="font-size: small">
+                    <td>
+                        <img src="~/imgFotos/@item.ImgFoto" alt="@item.ImgFoto" style="width: 30px; height: 30px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Matricula)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FuncaoBordo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FuncaoContrato)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Empresa)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nacionalidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Admin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ativo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genero)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DoB)
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-info" asp-controller="Integrantes" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
+                        <a class="btn btn-dark" asp-controller="Integrantes" asp-action="EditClaims" asp-route-id="@item.Id"><spam class="fa fa-lock-open"></spam></a>
+
+                        <a class="btn btn-warning" asp-controller="Integrantes" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
+                        <a class="btn btn-danger" asp-controller="Integrantes" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

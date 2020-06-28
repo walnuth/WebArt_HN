@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
@@ -51,14 +52,14 @@ namespace Signo.App.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "A {0} deve ter entre {2} e no máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Senha")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirme a Senha")]
+            [Compare("Password", ErrorMessage = "Senha não confere!")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -75,6 +76,11 @@ namespace Signo.App.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                // vou precisar disso
+                _userManager.Options.SignIn.RequireConfirmedAccount = false;
+
+
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -93,12 +99,18 @@ namespace Signo.App.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        //return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+
+                        return RedirectToAction("Create", new RouteValueDictionary(
+                            new { controller = "Integrantes", action = "Create"}));
                     }
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        //return LocalRedirect(returnUrl);
+                        
+                        return RedirectToAction("Create", new RouteValueDictionary(
+                            new { controller = "Integrantes", action = "Create" }));
                     }
                 }
                 foreach (var error in result.Errors)

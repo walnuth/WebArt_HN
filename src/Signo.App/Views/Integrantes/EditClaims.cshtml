@@ -6,8 +6,8 @@
 <h1>@ViewData["Title"]</h1>
 
 <div class="row">
-    <table class="table col-md-4">
-        <thead>
+    <table class="table col-md-4 table-hover">
+        <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ManipulateUserClaimsType)
@@ -34,7 +34,7 @@
         </tbody>
     </table>
     
-    <form class="col-md-2" asp-action="AddClaims">
+    <form class="col-md-2 H" asp-action="AddClaims">
         <div>
             <div class="form-group">
                 <label asp-for="ManipulateUserClaimsType" class="control-label"></label>
@@ -51,7 +51,7 @@
         </div>
     </form>
 
-    <form class="col-md-2" asp-action="DelClaim">
+    <form class="col-md-2 H" asp-action="DelClaim" style="text-align: center">
         <div>
             <div class="form-group">
                 <label asp-for="ManipulateUserClaimsType" class="control-label"></label>
@@ -63,7 +63,7 @@
                 <input asp-for="ManipulateUserClaimsValue" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Apagar Permissão" class="btn btn-danger" />
+                <input type="submit" value="Retirar Permissão" class="btn btn-danger" />
             </div>
         </div>
     </form>

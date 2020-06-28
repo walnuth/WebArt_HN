@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 
 namespace Signo.App.Areas.Identity.Pages.Account
@@ -77,11 +78,34 @@ namespace Signo.App.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                IdentityUser usr = await _userManager.FindByEmailAsync(Input.Email);
+
+
+
+                if (usr.EmailConfirmed == false)
+                {
+                    usr.EmailConfirmed = true;
+                    var result1 = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                    usr.EmailConfirmed = false;
+                    return RedirectToAction("Create", new RouteValueDictionary(
+                        new { controller = "Integrantes", action = "Create" }));
+                }
+
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+                
                 if (result.Succeeded)
                 {
+                    
+                    if (usr.EmailConfirmed==false)
+                    {
+                        return RedirectToAction("Create", new RouteValueDictionary(
+                            new { controller = "Integrantes", action = "Create" }));
+                    }
+
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
@@ -96,6 +120,8 @@ namespace Signo.App.Areas.Identity.Pages.Account
                 }
                 else
                 {
+                   
+
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }

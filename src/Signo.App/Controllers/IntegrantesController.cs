@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Signo.App.Data;
 using Signo.App.ViewModels;
@@ -83,8 +85,10 @@ namespace Signo.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IntegranteViewModel integranteViewModel)
         {
+
             if (ModelState.IsValid)
             {
+
                 IdentityUser usr = await GetCurrentUserAsync();
 
 
@@ -117,8 +121,11 @@ namespace Signo.App.Controllers
                 integranteMapped.Id = Guid.Parse(usr.Id);
                 await _integranteRepository.Adicionar(integranteMapped);
 
-                await _userManager.AddClaimAsync(usr, new Claim("ptw", "emitente"));
+                await _userManager.AddClaimAsync(usr, new Claim("PTW", "EMITENTE"));
 
+               
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(usr);
+                await _userManager.ConfirmEmailAsync(usr, code);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -262,10 +269,10 @@ namespace Signo.App.Controllers
             await _userManager.RemoveClaimAsync(usr, claimUsr);
 
             ViewData["Normalized"] = integranteMapped.Nome.ToUpper();
-            
+
 
             return RedirectToAction("EditClaims", new RouteValueDictionary(
-                new {controller = "Integrantes", action = "EditClaims", id = id}));
+                new { controller = "Integrantes", action = "EditClaims", id }));
         }
 
 
@@ -288,7 +295,7 @@ namespace Signo.App.Controllers
             ViewData["Normalized"] = integrante.Nome.ToUpper();
 
             return RedirectToAction("EditClaims", new RouteValueDictionary(
-                new { controller = "Integrantes", action = "EditClaims", id = id }));
+                new { controller = "Integrantes", action = "EditClaims", id }));
 
 
 

@@ -9,6 +9,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Signo.App.Data;
 using Signo.App.ViewModels;
@@ -24,7 +25,7 @@ namespace Signo.App.Controllers
         private readonly IIntegranteRepository _integranteRepository;
         private readonly UserManager<IdentityUser> _userManager;
         //private readonly AspNetRoleManager<IdentityUser> _roleManager;
-        
+
 
 
 
@@ -51,7 +52,7 @@ namespace Signo.App.Controllers
             var integrante = await _integranteRepository.ObterTodos();
             var integranteMapped = _mapper.Map<IEnumerable<IntegranteViewModel>>(integrante);
 
-            
+
 
             return View(integranteMapped);
         }
@@ -92,7 +93,7 @@ namespace Signo.App.Controllers
 
 
 
-               
+
 
 
 
@@ -117,7 +118,7 @@ namespace Signo.App.Controllers
                 await _integranteRepository.Adicionar(integranteMapped);
 
                 await _userManager.AddClaimAsync(usr, new Claim("ptw", "emitente"));
-              
+
 
                 return RedirectToAction(nameof(Index));
             }
@@ -219,7 +220,7 @@ namespace Signo.App.Controllers
 
 
             IdentityUser usr = await _userManager.FindByIdAsync(id.ToString());
-           
+
 
             var integrante = await _integranteRepository.ObterPorId(id);
             var integranteMapped = _mapper.Map<IntegranteViewModel>(integrante);
@@ -240,62 +241,58 @@ namespace Signo.App.Controllers
 
 
 
-     
-      
-        public async Task<IActionResult> DelClaim(Guid id)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DelClaim(Guid id, IntegranteViewModel integranteViewModel)
         {
             IdentityUser usr = await _userManager.FindByIdAsync(id.ToString());
 
+            IEnumerable<Claim> claimsList = await _userManager.GetClaimsAsync(usr);
+            if (!claimsList.Any()) { return NotFound("Ops, o usuário não possui Permissões para serem apagadas!"); }
+
+            string claimType = integranteViewModel.ManipulateUserClaimsType;
+            string claimValue = integranteViewModel.ManipulateUserClaimsValue;
+            if (claimType == null || claimValue == null) { return NotFound("Ops, você não pode deixar campos em branco!"); }
 
             var integrante = await _integranteRepository.ObterPorId(id);
             var integranteMapped = _mapper.Map<IntegranteViewModel>(integrante);
 
-            if (integrante == null)
-            {
-                return NotFound();
-            }
-
-            await _userManager.RemoveClaimAsync(usr, new Claim("", ""));
+            Claim claimUsr = new Claim(claimType, claimValue);
+            await _userManager.RemoveClaimAsync(usr, claimUsr);
 
             ViewData["Normalized"] = integranteMapped.Nome.ToUpper();
+            
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("EditClaims", new RouteValueDictionary(
+                new {controller = "Integrantes", action = "EditClaims", id = id}));
         }
 
 
 
 
-        //[HttpPost]
-        // public async Task<IActionResult> DelClaims(Guid id)
-        // {
-        //     string TypeClaim = "";
-        //     string ValueClaim = "";
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddClaims(Guid id, IntegranteViewModel integranteViewModel)
+        {
+            IdentityUser usr = await _userManager.FindByIdAsync(id.ToString());
+
+            string claimType = integranteViewModel.ManipulateUserClaimsType.ToUpper();
+            string claimValue = integranteViewModel.ManipulateUserClaimsValue.ToUpper();
+            if (claimType == null || claimValue == null) { return NotFound("Ops, você não pode deixar campos em branco!"); }
+
+            Claim claimUsr = new Claim(claimType, claimValue);
+            await _userManager.AddClaimAsync(usr, claimUsr);
+
+            var integrante = await _integranteRepository.ObterPorId(id);
+            ViewData["Normalized"] = integrante.Nome.ToUpper();
+
+            return RedirectToAction("EditClaims", new RouteValueDictionary(
+                new { controller = "Integrantes", action = "EditClaims", id = id }));
 
 
 
-        //     IdentityUser usr = await _userManager.FindByIdAsync(id.ToString());
-
-
-        //     var integrante = await _integranteRepository.ObterPorId(id);
-        //     var integranteMapped = _mapper.Map<IntegranteViewModel>(integrante);
-
-        //     if (integrante == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-
-
-        //     if (TypeClaim==null || ValueClaim==null)
-        //     {
-        //         return NotFound("Não existem permissões para esta ação");
-        //     }
-        //     await _userManager.RemoveClaimAsync(usr, new Claim(TypeClaim, ValueClaim));
-
-        //     ViewData["Normalized"] = integranteMapped.Nome.ToUpper();
-
-        //     return RedirectToAction(nameof(Index));
-        // }
+        }
 
 
 
@@ -358,7 +355,7 @@ namespace Signo.App.Controllers
 
             return true;
         }
-        
-      
+
+
     }
 }

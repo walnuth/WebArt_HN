@@ -82,8 +82,12 @@ namespace Signo.App.ViewModels
        public IEnumerable<IntegranteViewModel> Integrantes { get; set; }
 
        public IEnumerable<Claim> UserClaims { get; set; }
+
+       [DisplayName("Sistema")]
        public string ManipulateUserClaimsType { get; set; }
-       public string ManipulateUserClaimsValue { get; set; }
+
+       [DisplayName("Ações Permitidas")]
+        public string ManipulateUserClaimsValue { get; set; }
     }
 
 

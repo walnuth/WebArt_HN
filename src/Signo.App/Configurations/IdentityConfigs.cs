@@ -20,6 +20,9 @@ namespace Signo.App.Configurations
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+               
+               
+               
 
 
 

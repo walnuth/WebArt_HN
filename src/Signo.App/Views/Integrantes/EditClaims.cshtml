@@ -1,0 +1,68 @@
+﻿@model Signo.App.ViewModels.IntegranteViewModel
+
+
+
+@{
+   
+
+    ViewData["Title"] = "Permissões para " + ViewData["Normalized"];
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Adicionar</a>
+</p>
+<input type="hidden" asp-for="Id"/>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserClaims)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.UserClaims)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManipulateUserClaimsType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManipulateUserClaimsValue)
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserClaims)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                <input asp-for="ManipulateUserClaimsType" class="form-control" />
+            </td>
+            <td>
+                <input asp-for="ManipulateUserClaimsValue" class="form-control" />
+            </td>
+            <td class="text-right">
+                <a class="btn btn-info" asp-controller="Integrantes" asp-action="DelClaim" asp-route-id="@Model.Id"><spam class="fa fa-search"></spam></a>
+                <a class="btn btn-dark" asp-controller="Integrantes" asp-action="DelClaim" asp-route-id="@Model.Id"><spam class="fa fa-lock-open"></spam></a>
+
+                <a class="btn btn-warning" asp-controller="Integrantes" asp-action="DelClaim" asp-route-id="@Model.Id"><spam class="fa fa-pencil-alt"></spam></a>
+                <a class="btn btn-danger" asp-controller="Integrantes" asp-action="DelClaim" asp-route-id="@Model.Id"><spam class="fa fa-trash"></spam></a>
+            </td>
+
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+

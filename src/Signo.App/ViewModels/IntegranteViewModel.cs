@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
 
@@ -79,6 +80,10 @@ namespace Signo.App.ViewModels
         public DateTime DoB { get; set; }
 
        public IEnumerable<IntegranteViewModel> Integrantes { get; set; }
+
+       public IEnumerable<Claim> UserClaims { get; set; }
+       public string ManipulateUserClaimsType { get; set; }
+       public string ManipulateUserClaimsValue { get; set; }
     }
 
 

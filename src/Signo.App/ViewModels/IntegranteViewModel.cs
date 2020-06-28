@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Signo.Business.Models;
 
 
 namespace Signo.App.ViewModels
@@ -60,7 +61,7 @@ namespace Signo.App.ViewModels
         [StringLength(150, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 2)]
         public string Nacionalidade { get; set; }
 
-        [DisplayName("Adim?")]
+        [DisplayName("Admin?")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public bool Admin { get; set; }
 
@@ -68,7 +69,7 @@ namespace Signo.App.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public bool Ativo { get; set; }
 
-
+        [DisplayName("Gênero")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public int Genero { get; set; }
 
@@ -79,7 +80,11 @@ namespace Signo.App.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public DateTime DoB { get; set; }
 
-       public IEnumerable<IntegranteViewModel> Integrantes { get; set; }
+
+
+
+        public IEnumerable<EnumRig> Unidades { get; set; }
+        public IEnumerable<IntegranteViewModel> Integrantes { get; set; }
 
        public IEnumerable<Claim> UserClaims { get; set; }
 

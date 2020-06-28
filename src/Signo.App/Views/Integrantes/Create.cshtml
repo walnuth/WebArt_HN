@@ -1,10 +1,11 @@
-﻿@model Signo.App.ViewModels.IntegranteViewModel
+﻿@using Signo.Business.Models
+@model Signo.App.ViewModels.IntegranteViewModel
 
 @{
     ViewData["Title"] = "Adicionar Integrante";
 }
 
-<hr/>
+<hr />
 
 <h4>Integrante</h4>
 <hr />
@@ -16,6 +17,15 @@
                 <label asp-for="Nome" class="control-label"></label>
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Unidade" class="control-label"></label>
+                @*@Html.DropDownList("Rigs", new SelectList(Enum.GetValues(typeof(EnumRig))), new { id = "dropdownlist", multiple = "multiple" })*@
+                <select asp-for="Unidade" class="form-control" asp-items=@(new SelectList(Enum.GetValues(typeof(EnumRig))))>
+                    <option></option>
+                </select>
+                <span asp-validation-for="Unidade" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="Unidade" class="control-label"></label>
@@ -75,18 +85,16 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Admin" /> @Html.DisplayNameFor(model => model.Admin)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
                     <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
                 </label>
             </div>
             <div class="form-group">
                 <label asp-for="Genero" class="control-label"></label>
-                <input asp-for="Genero" class="form-control" />
-                <span asp-validation-for="Genero" class="text-danger"></span>
+                <div class="form-group row">
+                    <input type="radio" value="1" asp-for="Genero" checked />Feminino
+                    <label></label>
+                    <input type="radio" value="2" asp-for="Genero" />Masculino<br />
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Admissao" class="control-label"></label>
@@ -99,14 +107,14 @@
                 <span asp-validation-for="DoB" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {

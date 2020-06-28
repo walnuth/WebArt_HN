@@ -80,7 +80,13 @@ namespace Signo.App.Areas.Identity.Pages.Account
             {
                 IdentityUser usr = await _userManager.FindByEmailAsync(Input.Email);
 
+                if (usr==null) 
+                {
+                    return RedirectToAction("Create", new RouteValueDictionary(
+                        new {area = "Identity", page = "/Account/Manage/Index"}));
 
+                    //asp - area = "Identity" asp - page = "/Account/Manage/Index" title = "Manage"
+                }
 
                 if (usr.EmailConfirmed == false)
                 {

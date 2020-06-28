@@ -23,18 +23,18 @@ namespace Signo.App
 
         public IConfiguration Configuration { get; }
 
-       
+
 
 
 
         public void ConfigureServices(IServiceCollection services)
         {
-           services.AddDbContext<MeuDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<MeuDbContext>(options =>
+                 options.UseSqlServer(
+                     Configuration.GetConnectionString("DefaultConnection")));
 
-           services.ResolveDependencies();
-           services.AddAutoMapper(typeof(Startup));
+            services.ResolveDependencies();
+            services.AddAutoMapper(typeof(Startup));
 
 
             services.AddIdentityConfiguration(Configuration);
@@ -43,7 +43,7 @@ namespace Signo.App
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
-       
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -66,16 +66,21 @@ namespace Signo.App
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
+
             {
+                //endpoints.MapControllerRoute(
+                //    "PorAreas",
+                //    "{area: exists}/{controller}/{action}/{id?}",
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             }
-            
-                
+
+
                 );
-            
+
         }
     }
 }

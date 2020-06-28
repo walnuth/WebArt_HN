@@ -8,8 +8,8 @@ namespace Signo.Business.Models
     {
         ODN1 = 1,
         ODN2 = 2,
-        NorbeVi = 6,
-        NorbeViii = 8,
-        NorbeiV = 9
+        NORBEVI = 6,
+        NORBEVIII = 8,
+        NORBEIV = 9
     }
 }

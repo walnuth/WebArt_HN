@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -74,9 +75,12 @@ namespace Signo.App.Controllers
             return View(integranteMapped);
         }
 
-
+       
         public IActionResult Create()
         {
+            
+
+
             return View();
         }
 

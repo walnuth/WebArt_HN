@@ -51,10 +51,68 @@ namespace Signo.App.Controllers
 
 
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.UnidadeSortParm = sortOrder == "Unidade" ? "unidade_desc" : "Unidade";
+            ViewBag.MatriculaSortParm = sortOrder == "Matricula" ? "matricula_desc" : "Matricula";
+            ViewBag.FuncaoBordoSortParm = sortOrder == "FuncaoBordo" ? "funcaoBordo_desc" : "FuncaoBordo";
+            ViewBag.FuncaoContratoSortParm = sortOrder == "FuncaoContrato" ? "funcaoContrato_desc" : "FuncaoContrato";
+            ViewBag.EmpresaSortParm = sortOrder == "Empresa" ? "empresa_desc" : "Empresa";
+
+            //muda apenas o valor que esta na bag para a proxima vez que passar, o SORTORDER continua intacto para o Select Case
+
             var integrante = await _integranteRepository.ObterTodos();
-            var integranteMapped = _mapper.Map<IEnumerable<IntegranteViewModel>>(integrante);
+            var students = from s in integrante
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.Nome);
+                    break;
+                case "Unidade":
+                    students = students.OrderBy(s => s.Unidade);
+                    break;
+                case "unidade_desc":
+                    students = students.OrderByDescending(s => s.Unidade);
+                    break;
+                case "Matricula":
+                    students = students.OrderBy(s => s.Unidade);
+                    break;
+                case "matricula_desc":
+                    students = students.OrderByDescending(s => s.Unidade);
+                    break;
+                case "FuncaoBordo":
+                    students = students.OrderBy(s => s.Unidade);
+                    break;
+                case "funcaoBordo_desc":
+                    students = students.OrderByDescending(s => s.Unidade);
+                    break;
+                case "FuncaoContrato":
+                    students = students.OrderBy(s => s.Unidade);
+                    break;
+                case "funcaoContrato_desc":
+                    students = students.OrderByDescending(s => s.Unidade);
+                    break;
+                case "Empresa":
+                    students = students.OrderBy(s => s.Unidade);
+                    break;
+                case "empresa_desc":
+                    students = students.OrderByDescending(s => s.Unidade);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.Nome);
+                    break;
+            }
+
+
+            var integranteMapped = _mapper.Map<IEnumerable<IntegranteViewModel>>(students);
+
+            return View(integranteMapped.ToList());
+
+
+            //var integrante = await _integranteRepository.ObterTodos();
+            //var integranteMapped = _mapper.Map<IEnumerable<IntegranteViewModel>>(integrante);
 
 
 

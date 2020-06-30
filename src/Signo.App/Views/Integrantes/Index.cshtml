@@ -1,14 +1,54 @@
-﻿@model IEnumerable<Signo.App.ViewModels.IntegranteViewModel>
+﻿@using Signo.Business.Models
+@using System.Linq
+@model IEnumerable<Signo.App.ViewModels.IntegranteViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Lista de Integrantes</h1>
+<hr />
 
-<p>
-    <a class="btn btn-info" asp-action="Create">Inserir Integrante</a>
-</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+           
+            <p>
+                <a class="btn btn-info" asp-action="Create">Inserir Integrante</a>
+            </p>
+
+
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Integrantes" asp-action="Index">Integrantes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+
 
 <div id="divInt">
     <table class="table table-hover" id="tabelaIntegrante">
@@ -18,42 +58,25 @@
 
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Nome)
+                    @Html.ActionLink(@Html.DisplayNameFor(model => model.Nome), "Index", new { sortOrder = ViewBag.NameSortParm })
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Unidade)
+                    @Html.ActionLink(@Html.DisplayNameFor(model => model.Unidade), "Index", new { sortOrder = ViewBag.UnidadeSortParm })
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Matricula)
+                    @Html.ActionLink(@Html.DisplayNameFor(model => model.Matricula), "Index", new { sortOrder = ViewBag.MatriculaSortParm })
+                </th>
+               
+                <th>
+                    @Html.ActionLink(@Html.DisplayNameFor(model => model.FuncaoBordo), "Index",new { sortOrder = ViewBag.FuncaoBordoSortParm })
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FuncaoBordo)
+                    @Html.ActionLink(@Html.DisplayNameFor(model => model.FuncaoContrato), "Index", new { sortOrder = ViewBag.FuncaoContratoSortParm })
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FuncaoContrato)
+                    @Html.ActionLink(@Html.DisplayNameFor(model => model.Empresa), "Index", new { sortOrder = ViewBag.EmpresaSortParm })
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Empresa)
-                </th>
-
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Nacionalidade)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Admin)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ativo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Genero)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.DoB)
-                </th>
-                <th></th>
+               <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -86,31 +109,16 @@
                     </td>
 
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nacionalidade)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Admin)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ativo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Genero)
-                    </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DoB)
-                    </td>
                     <td class="text-right">
                         <a class="btn btn-info" asp-controller="Integrantes" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
-                  
+
                         <a class="btn btn-warning" asp-controller="Integrantes" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
 
-                   
+
                         <a class="btn btn-dark" asp-controller="Integrantes" asp-action="EditClaims" asp-route-id="@item.Id"><spam class="fa fa-lock-open"></spam></a>
 
-                    
+
                         <a class="btn btn-danger" asp-controller="Integrantes" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
                     </td>
                 </tr>

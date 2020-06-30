@@ -7,7 +7,7 @@ namespace Signo.Business.Models
     {
 
        public string Nome { get; set; }
-        public int Unidade { get; set; }
+        public string Unidade { get; set; }
         public string Matricula { get; set; }
         public string FuncaoBordo { get; set; }
         public string FuncaoContrato { get; set; }

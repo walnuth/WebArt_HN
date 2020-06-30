@@ -10,7 +10,7 @@
 <h4>Integrante</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -26,11 +26,6 @@
                 </select>
                 <span asp-validation-for="Unidade" class="text-danger"></span>
 
-            </div>
-            <div class="form-group">
-                <label asp-for="Unidade" class="control-label"></label>
-                <input asp-for="Unidade" class="form-control" />
-                <span asp-validation-for="Unidade" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Matricula" class="control-label"></label>
@@ -64,18 +59,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="ImgFotoUpload" class="control-label"></label>
-                <div class="custom-file">
+                <div class="custom-file" id="custom-file1">
                     <input type="file" class="custom-file-input" id="ImgFotoUpload" asp-for="ImgFotoUpload" />
                     <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgFotoUpload"></label>
-                    <label style="display:none" id="img_Fotonome"></label>
+                    <label style="display:none" id="ImgFotoUploadNome"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="ImgSignUpload" class="control-label"></label>
-                <div class="custom-file">
+                <div class="custom-file" id="custom-file2">
                     <input type="file" class="custom-file-input" id="ImgSignUpload" asp-for="ImgSignUpload" />
                     <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgSignUpload"></label>
-                    <label style="display:none" id="img_Signnome"></label>
+                    <label style="display:none" id="ImgSignUploadNome"></label>
                 </div>
             </div>
             <div class="form-group">
@@ -88,7 +83,7 @@
                     <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
                 </label>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding: 15px">
                 <label asp-for="Genero" class="control-label"></label>
                 <div class="form-group row">
                     <input type="radio" value="1" asp-for="Genero" checked />Feminino
@@ -121,22 +116,24 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
-        $("#ImagemFotoUpload").change(function () {
-            $("#img_Fotonome").text(this.files[0].name);
-            $("#img_Fotonome")[0].style.display = 'block';
+        $("#ImgFotoUpload").change(function () {
+            $("#ImgFotoUploadNome").text(this.files[0].name);
+            $("#ImgFotoUploadNome")[0].style.display = 'block';
+            document.getElementById("custom-file1").style.backgroundColor = "#000000";
         });
 
-        $("#ImagemFotoUpload").attr("data-val", "true");
-        $("#ImagemFotoUpload").attr("data-val-required", "Preencha o campo Imagem");
+        $("#ImgFotoUpload").attr("data-val", "true");
+        $("#ImgFotoUpload").attr("data-val-required", "Preencha o campo Imagem");
     </script>
     <script>
-        $("#ImagemSignUpload").change(function () {
-            $("#img_Signnome").text(this.files[0].name);
-            $("#img_Signnome")[0].style.display = 'block';
+        $("#ImgSignUpload").change(function () {
+            $("#ImgSignUploadNome").text(this.files[0].name);
+            $("#ImgSignUploadNome")[0].style.display = 'block';
+            document.getElementById("custom-file2").style.backgroundColor = "#000000";
         });
 
-        $("#ImagemSignUpload").attr("data-val", "true");
-        $("#ImagemSignUpload").attr("data-val-required", "Preencha o campo Imagem");
+        $("#ImgSignUpload").attr("data-val", "true");
+        $("#ImgSignUpload").attr("data-val-required", "Preencha o campo Imagem");
     </script>
 
 

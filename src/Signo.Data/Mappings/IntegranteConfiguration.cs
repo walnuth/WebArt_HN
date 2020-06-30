@@ -17,7 +17,8 @@ namespace Signo.Data.Mappings
 
 
             builder.Property(p => p.Unidade)
-                .IsRequired();
+                .IsRequired()
+                .HasColumnType("varchar(10)");
 
             builder.Property(p => p.Matricula)
                 .IsRequired(false)

@@ -1,17 +1,18 @@
-﻿@model Signo.App.ViewModels.IntegranteViewModel
+﻿@using Signo.Business.Models
+@model Signo.App.ViewModels.IntegranteViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Informações de " + @Model.Nome;
 }
 
-<h1>Edit</h1>
-
-<h4>Integrante</h4>
+<h4>@ViewData["Title"]</h4>
 <hr />
+
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-6">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="Nome" class="control-label"></label>
                 <input asp-for="Nome" class="form-control" />
@@ -19,8 +20,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Unidade" class="control-label"></label>
-                <input asp-for="Unidade" class="form-control" />
+                @*@Html.DropDownList("Rigs", new SelectList(Enum.GetValues(typeof(EnumRig))), new { id = "dropdownlist", multiple = "multiple" })*@
+                <select asp-for="Unidade" class="form-control" asp-items=@(new SelectList(Enum.GetValues(typeof(EnumRig))))>
+                    <option></option>
+                </select>
                 <span asp-validation-for="Unidade" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="Matricula" class="control-label"></label>
@@ -47,21 +52,19 @@
                 <input asp-for="Endereco" class="form-control" />
                 <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
+
+
+
+
             <div class="form-group">
                 <label asp-for="Telefone" class="control-label"></label>
                 <input asp-for="Telefone" class="form-control" />
                 <span asp-validation-for="Telefone" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ImgFoto" class="control-label"></label>
-                <input asp-for="ImgFoto" class="form-control" />
-                <span asp-validation-for="ImgFoto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImgSign" class="control-label"></label>
-                <input asp-for="ImgSign" class="form-control" />
-                <span asp-validation-for="ImgSign" class="text-danger"></span>
-            </div>
+
+
+
+
             <div class="form-group">
                 <label asp-for="Nacionalidade" class="control-label"></label>
                 <input asp-for="Nacionalidade" class="form-control" />
@@ -92,11 +95,36 @@
                 <input asp-for="DoB" class="form-control" />
                 <span asp-validation-for="DoB" class="text-danger"></span>
             </div>
+            
+            <div class="form-group">
+                <label asp-for="ImgFotoUpload" class="control-label"></label>
+                <div class="custom-file" id="custom-file1">
+                    <input type="file" class="custom-file-input" id="ImgFotoUpload" asp-for="ImgFotoUpload" />
+                    <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgFotoUpload"></label>
+                    <label style="display:none" id="ImgFotoUploadNome"></label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImgSignUpload" class="control-label"></label>
+                <div class="custom-file" id="custom-file2">
+                    <input type="file" class="custom-file-input" id="ImgSignUpload" asp-for="ImgSignUpload" />
+                    <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgSignUpload"></label>
+                    <label style="display:none" id="ImgSignUploadNome"></label>
+                </div>
+            </div>
+           
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <img src="~/imgAss/@Model.ImgSign" alt="@Model.ImgSign" style="width: 80px; height: 80px" />
             </div>
         </form>
+
+    </div>
+    <div class="col-md-2">
+        <img src="~/imgFotos/@Model.ImgFoto" alt="@Model.ImgFoto" style="width:170px; height:170px" />
+       
     </div>
 </div>
 
@@ -106,4 +134,23 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $("#ImgFotoUpload").change(function () {
+            $("#ImgFotoUploadNome").text(this.files[0].name);
+            $("#ImgFotoUploadNome")[0].style.display = 'block';
+            document.getElementById("custom-file1").style.backgroundColor = "#000000";
+        });
+
+       
+    </script>
+    <script>
+        $("#ImgSignUpload").change(function () {
+            $("#ImgSignUploadNome").text(this.files[0].name);
+            $("#ImgSignUploadNome")[0].style.display = 'block';
+            document.getElementById("custom-file2").style.backgroundColor = "#000000";
+        });
+
+       
+    </script>
 }

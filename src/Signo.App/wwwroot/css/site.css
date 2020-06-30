@@ -1,94 +1,231 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 12px;
-   
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 12px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 
-#tabelaIntegrante .thInt  {
-    width: 400px;
-
+input,
+select,
+file,
+textarea {
+    max-width: 400px;
 }
 
-#tabelaIntegrante {
-    width: 1500px;
+/*a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}*/
+
+/* Provide sufficient contrast against white background */
+/*a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}*/
+
+/* Sticky footer styles
+-------------------------------------------------- */
+/**, html {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}*/
+
+/* Sticky footer styles
+-------------------------------------------------- */
+/*html {
+   position: relative;
+}*/
+
+.bodyWepp body{
+    
+    color: #212529;
+  
+    background-color: #ddd;
+}
+
+.headerHarry{
+    background-color: #aaa;
+}
+
+.footer {
+    background-color: #aaa;
+}
+.container {
+    width: 100%;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+
+#tabelaIntegrante tr th {
+    margin: 0;
+    padding:5px;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 12px;
+}
+
+#tabelaIntegrante tr td {
+    margin: 0;
+    padding: 10px;
+    white-space: nowrap;
+    font-size: 12px;
+    text-align: left;
+   
+}
+
+/*.btn {
+    width: 30px;
+    height: 30px;
+   
+}*/
+
+.fa-search {
+    font-size: 12px;
+}
+.fa-pencil-alt {
+    font-size: 12px;
+   
+}
+.fa-lock-open {
+    font-size: 12px;
+  
+}
+.fa-trash {
+    font-size: 12px;
+   
+}
+
+/*#tabelaIntegrante {
+    width: auto;
     border-collapse: collapse;
-    border: 0px solid black;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
     text-align: center;
     table-layout: auto;
     margin: 0;
     padding: 5px;
 }
 
+
 #divInt {
     padding: 0;
     margin: 0;
+}
+
+.navbarHarry {
+    animation: mymove 15s infinite alternate-reverse;
+}
 }
 
 .fa fa-search {
@@ -99,4 +236,31 @@ body {
     text-align: center;
 }
 
+.main {
+    margin: 0;
+    padding: 0;
+}
 
+.btn-danger {
+    animation: btndangerH 5s infinite alternate-reverse;
+}
+
+@keyframes mymove {
+    0% {
+        background: white;
+    }
+    100% {
+        background: #555;
+    }
+}
+
+
+@keyframes btndangerH {
+    0% {
+        background: rgb(255, 0, 0);
+    }
+
+    100% {
+        background: rgb(166, 10, 10);
+    }
+}*/

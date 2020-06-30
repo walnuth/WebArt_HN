@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -123,6 +124,8 @@ namespace Signo.App.Controllers
 
                 var integranteMapped = _mapper.Map<Integrante>(integranteViewModel);
                 integranteMapped.Id = Guid.Parse(usr.Id);
+                integranteMapped.Admissao = DateTime.Now;
+
                 await _integranteRepository.Adicionar(integranteMapped);
 
                 await _userManager.AddClaimAsync(usr, new Claim("PTW", "EMITENTE"));
@@ -162,9 +165,42 @@ namespace Signo.App.Controllers
 
             if (ModelState.IsValid)
             {
+                var imgPrefixo = id + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss",
+                    CultureInfo.InvariantCulture) + "_Foto";
+                var imgPrefixo2 = id + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss",
+                    CultureInfo.InvariantCulture) + "_Ass";
+
+                var integranteImgs = await _integranteRepository.ObterPorId(id);
+                integrante.ImgFoto = integranteImgs.ImgFoto;
+                integrante.ImgSign = integranteImgs.ImgSign;
+
+                if (integrante.ImgFotoUpload== null)
+                {
+                    goto Jfoto;
+                }
+                if (!await UploadArquivoImgFoto(integrante.ImgFotoUpload, imgPrefixo))
+                {
+                    return View(integrante);
+                }
+
+                integrante.ImgFoto =
+                    imgPrefixo + ".JPG";
+                Jfoto:
+                if (integrante.ImgSignUpload == null)
+                {
+                    goto Jsign;
+                }
+                if (!await UploadArquivoSignFoto(integrante.ImgSignUpload, imgPrefixo2))
+                {
+                    return View(integrante);
+                }
+                integrante.ImgSign =
+                    imgPrefixo2 + ".JPG";
+
+                Jsign:
                 try
                 {
-
+                    integrante.Admissao = DateTime.Now;
                     var integranteMapped = _mapper.Map<Integrante>(integrante);
                     await _integranteRepository.Atualizar(integranteMapped);
                 }
@@ -328,12 +364,14 @@ namespace Signo.App.Controllers
             if (arquivo.Length <= 0) return false;
 
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgFotos",
-                imgPrefixo + Path.GetExtension(arquivo.FileName));     /*arquivo.FileName);*/
+                imgPrefixo + ".JPG");    /*arquivo.FileName);*/
 
             if (System.IO.File.Exists(path))
             {
-                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
-                return false;
+
+                {
+                    System.IO.File.Delete(path);
+                }
             }
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -351,12 +389,14 @@ namespace Signo.App.Controllers
             if (arquivo.Length <= 0) return false;
 
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgAss",
-                imgPrefixo2 + Path.GetExtension(arquivo.FileName));     /*arquivo.FileName);*/
+                imgPrefixo2 + ".JPG");       /*arquivo.FileName);*/
 
             if (System.IO.File.Exists(path))
             {
-                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
-                return false;
+
+                {
+                   System.IO.File.Delete(path);
+                }
             }
 
             using (var stream = new FileStream(path, FileMode.Create))

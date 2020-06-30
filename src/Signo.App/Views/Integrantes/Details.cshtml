@@ -5,9 +5,14 @@
 }
 
 <h1>Details</h1>
-
-<div>
-    <h4>Integrante</h4>
+<h4>Integrante</h4>
+<hr/>
+<div class="row">
+  
+    <div class="col-md-2">
+        <img src="~/imgFotos/@Model.ImgFoto" alt="@Model.ImgFoto" style="width:170px; height:170px" />
+       
+    </div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -58,12 +63,8 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Telefone)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImgFoto)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ImgFoto)
-        </dd>
+       
+      
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ImgSign)
         </dt>
@@ -107,6 +108,7 @@
             @Html.DisplayFor(model => model.DoB)
         </dd>
     </dl>
+   
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

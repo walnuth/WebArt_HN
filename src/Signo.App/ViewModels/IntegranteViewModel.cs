@@ -21,6 +21,8 @@ namespace Signo.App.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public string Unidade { get; set; }
 
+
+
         [StringLength(50, ErrorMessage = "O campo {0} deve no máximo {1} caracteres")]
         public string Matricula { get; set; }
 
@@ -73,7 +75,7 @@ namespace Signo.App.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public int Genero { get; set; }
 
-        [DisplayName("Data de Adminissão")]
+        [DisplayName("Data da Última Edição")]
         public DateTime Admissao { get; set; }
 
         [DisplayName("Data de Nascimento")]

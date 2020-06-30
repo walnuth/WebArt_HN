@@ -8,8 +8,8 @@ namespace Signo.Data.Context
     {
         public MeuDbContext(DbContextOptions<MeuDbContext> options) : base(options)
         {
-            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            //ChangeTracker.AutoDetectChangesEnabled = false;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
         public DbSet<Integrante> Integrantes { get; set; }

@@ -135,12 +135,18 @@ button.accept-policy {
     font-size: 1rem;
     line-height: inherit;
 }*/
-
+.imgRound {
+    border-radius: 30px;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 /*html {
    position: relative;
 }*/
+
+.THIndex {
+    width: 20%;
+}
 
 .bodyWepp body{
     
@@ -164,7 +170,18 @@ button.accept-policy {
     margin-left: auto;
 }
 
+.tabelaIntegrante {
+    display: block;
+    margin: 0;
+    padding: 5px;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 12px;
+}
 
+.tabelaIntegrante thead {
+  
+}
 
 #tabelaIntegrante tr th {
     margin: 0;

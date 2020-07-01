@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Matching;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Signo.App.Data;
@@ -51,7 +52,10 @@ namespace Signo.App.Controllers
 
 
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, 
+            string searchStrNome, 
+            string searchStrUnidade, 
+            string searchStrFuncaoBordo)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.UnidadeSortParm = sortOrder == "Unidade" ? "unidade_desc" : "Unidade";
@@ -62,61 +66,103 @@ namespace Signo.App.Controllers
 
             //muda apenas o valor que esta na bag para a proxima vez que passar, o SORTORDER continua intacto para o Select Case
 
-            var integrante = await _integranteRepository.ObterTodos();
-            var students = from s in integrante
-                           select s;
+            IEnumerable<Integrante> integranteS = await _integranteRepository.ObterTodos();
+
+
+            IEnumerable<Integrante> integrante = from s in integranteS
+                select s;
+
+            
+            if (!String.IsNullOrEmpty(searchStrNome) & !String.IsNullOrEmpty(searchStrUnidade) & !String.IsNullOrEmpty(searchStrFuncaoBordo))
+            {
+                integrante = integrante.Where(s => s.Nome.Contains(searchStrNome) &
+                             s.Unidade.Contains(searchStrUnidade) &
+                             s.FuncaoBordo.Contains(searchStrFuncaoBordo));
+                goto Jump;
+            }
+
+            if (!String.IsNullOrEmpty(searchStrNome) & !String.IsNullOrEmpty(searchStrUnidade))
+            {
+                integrante = integrante.Where(s => s.Nome.Contains(searchStrNome) &
+                                                   s.Unidade.Contains(searchStrUnidade));
+                goto Jump;
+            }
+            if (!String.IsNullOrEmpty(searchStrNome) & !String.IsNullOrEmpty(searchStrFuncaoBordo))
+            {
+                integrante = integrante.Where(s => s.Nome.Contains(searchStrNome) &
+                                                s.FuncaoBordo.Contains(searchStrFuncaoBordo));
+                goto Jump;
+            }
+
+            if (!String.IsNullOrEmpty(searchStrNome))
+            {
+                integrante = integrante.Where(s => s.Nome.Contains(searchStrNome));
+                goto Jump;
+            }
+
+            if (!String.IsNullOrEmpty(searchStrUnidade))
+            {
+                integrante = integrante.Where(s => s.Unidade.Contains(searchStrUnidade));
+                goto Jump;
+            }
+            if (!String.IsNullOrEmpty(searchStrFuncaoBordo))
+            {
+                integrante = integrante.Where(s => s.FuncaoBordo.Contains(searchStrFuncaoBordo));
+                goto Jump;
+            }
+
+            Jump:
+
+
+
+
+
             switch (sortOrder)
             {
                 case "name_desc":
-                    students = students.OrderByDescending(s => s.Nome);
+                   
+                    integrante = integrante.OrderByDescending(s => s.Nome);
+                   
                     break;
                 case "Unidade":
-                    students = students.OrderBy(s => s.Unidade);
+                    integrante = integrante.OrderBy(s => s.Unidade);
                     break;
                 case "unidade_desc":
-                    students = students.OrderByDescending(s => s.Unidade);
+                    integrante = integrante.OrderByDescending(s => s.Unidade);
                     break;
                 case "Matricula":
-                    students = students.OrderBy(s => s.Unidade);
+                    integrante = integrante.OrderBy(s => s.Unidade);
                     break;
                 case "matricula_desc":
-                    students = students.OrderByDescending(s => s.Unidade);
+                    integrante = integrante.OrderByDescending(s => s.Unidade);
                     break;
                 case "FuncaoBordo":
-                    students = students.OrderBy(s => s.Unidade);
+                    integrante = integrante.OrderBy(s => s.Unidade);
                     break;
                 case "funcaoBordo_desc":
-                    students = students.OrderByDescending(s => s.Unidade);
+                    integrante = integrante.OrderByDescending(s => s.Unidade);
                     break;
                 case "FuncaoContrato":
-                    students = students.OrderBy(s => s.Unidade);
+                    integrante = integrante.OrderBy(s => s.Unidade);
                     break;
                 case "funcaoContrato_desc":
-                    students = students.OrderByDescending(s => s.Unidade);
+                    integrante = integrante.OrderByDescending(s => s.Unidade);
                     break;
                 case "Empresa":
-                    students = students.OrderBy(s => s.Unidade);
+                    integrante = integrante.OrderBy(s => s.Unidade);
                     break;
                 case "empresa_desc":
-                    students = students.OrderByDescending(s => s.Unidade);
+                    integrante = integrante.OrderByDescending(s => s.Unidade);
                     break;
                 default:
-                    students = students.OrderBy(s => s.Nome);
+                    integrante = integrante.OrderBy(s => s.Nome);
                     break;
             }
 
 
-            var integranteMapped = _mapper.Map<IEnumerable<IntegranteViewModel>>(students);
+            var integranteMapped = _mapper.Map<IEnumerable<IntegranteViewModel>>(integrante);
 
             return View(integranteMapped.ToList());
-
-
-            //var integrante = await _integranteRepository.ObterTodos();
-            //var integranteMapped = _mapper.Map<IEnumerable<IntegranteViewModel>>(integrante);
-
-
-
-            return View(integranteMapped);
         }
 
 
@@ -134,10 +180,10 @@ namespace Signo.App.Controllers
             return View(integranteMapped);
         }
 
-       
+
         public IActionResult Create()
         {
-            
+
 
 
             return View();
@@ -188,7 +234,7 @@ namespace Signo.App.Controllers
 
                 await _userManager.AddClaimAsync(usr, new Claim("PTW", "EMITENTE"));
 
-               
+
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(usr);
                 await _userManager.ConfirmEmailAsync(usr, code);
 
@@ -232,7 +278,7 @@ namespace Signo.App.Controllers
                 integrante.ImgFoto = integranteImgs.ImgFoto;
                 integrante.ImgSign = integranteImgs.ImgSign;
 
-                if (integrante.ImgFotoUpload== null)
+                if (integrante.ImgFotoUpload == null)
                 {
                     goto Jfoto;
                 }
@@ -453,7 +499,7 @@ namespace Signo.App.Controllers
             {
 
                 {
-                   System.IO.File.Delete(path);
+                    System.IO.File.Delete(path);
                 }
             }
 

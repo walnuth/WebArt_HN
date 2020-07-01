@@ -48,17 +48,7 @@ namespace Signo.App.ViewModels
         [StringLength(150, ErrorMessage = "O campo {0} deve no máximo {1} caracteres")]
         public string Telefone { get; set; }
 
-        [DisplayName("Foto do Integrante")]
-        public IFormFile ImgFotoUpload { get; set; }
-
-        [DisplayName("Foto")]
-        public string ImgFoto { get; set; }
-
-        [DisplayName("Assinatura Digitalizada")]
-        public IFormFile ImgSignUpload { get; set; }
-
-        [DisplayName("Assinatura Digital")]
-        public string ImgSign { get; set; }
+       
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [StringLength(150, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 2)]
@@ -84,6 +74,18 @@ namespace Signo.App.ViewModels
         public DateTime DoB { get; set; }
 
 
+
+        [DisplayName("Foto do Integrante")]
+        public IFormFile ImgFotoUpload { get; set; }
+
+        [DisplayName("Foto")]
+        public string ImgFoto { get; set; }
+
+        [DisplayName("Assinatura Digitalizada")]
+        public IFormFile ImgSignUpload { get; set; }
+
+        [DisplayName("Assinatura Digital")]
+        public string ImgSign { get; set; }
 
 
         public IEnumerable<EnumRig> Unidades { get; set; }

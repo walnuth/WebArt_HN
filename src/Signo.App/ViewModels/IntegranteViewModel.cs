@@ -22,7 +22,8 @@ namespace Signo.App.ViewModels
         public string Unidade { get; set; }
 
 
-
+        [DisplayName("Matrícula")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [StringLength(50, ErrorMessage = "O campo {0} deve no máximo {1} caracteres")]
         public string Matricula { get; set; }
 

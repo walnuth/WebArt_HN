@@ -55,7 +55,10 @@ namespace Signo.App.Controllers
         public async Task<IActionResult> Index(string sortOrder, 
             string searchStrNome, 
             string searchStrUnidade, 
-            string searchStrFuncaoBordo)
+            string searchStrFuncaoBordo,
+            bool searchNaoAtivo,
+            bool searchAtivo)
+        
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.UnidadeSortParm = sortOrder == "Unidade" ? "unidade_desc" : "Unidade";
@@ -158,7 +161,15 @@ namespace Signo.App.Controllers
                     integrante = integrante.OrderBy(s => s.Nome);
                     break;
             }
-
+            if (searchAtivo==true)
+            {
+                integrante = integrante.Where(s => s.Ativo == true);
+               
+            }
+            else if (searchNaoAtivo == true)
+            {
+                integrante = integrante.Where(s => s.Ativo == false);
+            }
 
             var integranteMapped = _mapper.Map<IEnumerable<IntegranteViewModel>>(integrante);
 
@@ -399,12 +410,19 @@ namespace Signo.App.Controllers
         {
             IdentityUser usr = await _userManager.FindByIdAsync(id.ToString());
 
+
+            if (String.IsNullOrEmpty(integranteViewModel.ManipulateUserClaimsType) &
+                String.IsNullOrEmpty(integranteViewModel.ManipulateUserClaimsType))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             IEnumerable<Claim> claimsList = await _userManager.GetClaimsAsync(usr);
             if (!claimsList.Any()) { return NotFound("Ops, o usuário não possui Permissões para serem apagadas!"); }
 
             string claimType = integranteViewModel.ManipulateUserClaimsType;
             string claimValue = integranteViewModel.ManipulateUserClaimsValue;
-            if (claimType == null || claimValue == null) { return NotFound("Ops, você não pode deixar campos em branco!"); }
+           
 
             var integrante = await _integranteRepository.ObterPorId(id);
             var integranteMapped = _mapper.Map<IntegranteViewModel>(integrante);
@@ -428,9 +446,15 @@ namespace Signo.App.Controllers
         {
             IdentityUser usr = await _userManager.FindByIdAsync(id.ToString());
 
+            if (String.IsNullOrEmpty(integranteViewModel.ManipulateUserClaimsType) &
+                String.IsNullOrEmpty(integranteViewModel.ManipulateUserClaimsType))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             string claimType = integranteViewModel.ManipulateUserClaimsType.ToUpper();
             string claimValue = integranteViewModel.ManipulateUserClaimsValue.ToUpper();
-            if (claimType == null || claimValue == null) { return NotFound("Ops, você não pode deixar campos em branco!"); }
+          
 
             Claim claimUsr = new Claim(claimType, claimValue);
             await _userManager.AddClaimAsync(usr, claimUsr);

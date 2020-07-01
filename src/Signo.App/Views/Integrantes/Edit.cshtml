@@ -9,153 +9,138 @@
 <hr />
 
 <div class="row">
-    <form asp-action="Edit" enctype="multipart/form-data">
+
+    <div class="col-md-4">
+
+
+        <img src="~/imgFotos/@Model.ImgFoto" alt="@Model.ImgFoto" style="width: 150px; height: 214px" class="imgRound" />
+
+        <div class="col-md-2" id="divUpload">
+            <input type="file" class="custom-file-input" id="ImgFotoUpload" asp-for="ImgFotoUpload" />
+            <label data-browse="Procurar" style="width: 50%" class="custom-file-label labelUpload" for="ImgFotoUpload"></label>
+            <label style="display: none" class="labelUpload2" id="ImgFotoUploadNome"></label>
+        </div>
+        <br />
+
+        <img src="~/imgAss/@Model.ImgSign" alt="@Model.ImgFoto" style="width: 107px; height: 75px" class="imgRound" />
+        <div class="col-md-2">
+            <input type="file" class="custom-file-input" id="ImgSignUpload" asp-for="ImgSignUpload" />
+            <label data-browse="Procurar" style="width: 50%" class="custom-file-label labelUpload" for="ImgSignUpload"></label>
+            <label class="labelUpload2" style="display: none" id="ImgSignUploadNome"></label>
+        </div>
+
+    </div>
+
+    <form asp-action="Edit" enctype="multipart/form-data" class="col-md-6">
         <input type="hidden" asp-for="Id" />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <dl class="row">
-            <div class="col-sm-4">
-                <dt>
-                    <img src="~/imgFotos/@Model.ImgFoto" alt="@Model.ImgFoto" style="width: 150px; height: 214px" class="imgRound" />
-                </dt>
-                <br />
-                <dt>
-                    <img src="~/imgAss/@Model.ImgSign" alt="@Model.ImgFoto" style="width: 107px; height: 75px" class="imgRound" />
-                </dt>
-            </div>
-            <div class="col-md-6">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Nome)
-                </dt>
-                <dd>
-                    <input asp-for="Nome" class="form-control" />
-                    <span asp-validation-for="Nome" class="text-danger"></span>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Unidade)
-                </dt>
-                <dd>
-                    <select asp-for="Unidade" class="form-control" asp-items=@(new SelectList(Enum.GetValues(typeof(EnumRig))))>
-                        <option></option>
-                    </select>
-                    <span asp-validation-for="Unidade" class="text-danger"></span>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Matricula)
-                </dt>
-                <dd>
-                    <input asp-for="Matricula" class="form-control" />
-                    <span asp-validation-for="Matricula" class="text-danger"></span>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.FuncaoBordo)
-                </dt>
-                <dd>
-                    <input asp-for="FuncaoBordo" class="form-control" />
-                    <span asp-validation-for="FuncaoBordo" class="text-danger"></span>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.FuncaoContrato)
-                </dt>
-                <dd>
-                    <input asp-for="FuncaoContrato" class="form-control" />
-                    <span asp-validation-for="FuncaoContrato" class="text-danger"></span>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Empresa)
-                </dt>
-                <dd>
-                    <input asp-for="Empresa" class="form-control" />
-                    <span asp-validation-for="Empresa" class="text-danger"></span>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Endereco)
-                </dt>
-                <dd>
-                    <input asp-for="Endereco" class="form-control" />
-                    <span asp-validation-for="Endereco" class="text-danger"></span>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Telefone)
-                </dt>
-                <dd>
-                    <input asp-for="Telefone" class="form-control" />
-                    <span asp-validation-for="Telefone" class="text-danger"></span>
-                </dd>
+        <dl>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Nacionalidade)
-                </dt>
-                <dd>
-                    <input asp-for="Nacionalidade" class="form-control" />
-                    <span asp-validation-for="Nacionalidade" class="text-danger"></span>
-                </dd>
-                <dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Unidade)
+            </dt>
+            <dd>
+                <select asp-for="Unidade" class="form-control" asp-items=@(new SelectList(Enum.GetValues(typeof(EnumRig))))>
+                    <option></option>
+                </select>
+                <span asp-validation-for="Unidade" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Matricula)
+            </dt>
+            <dd>
+                <input asp-for="Matricula" class="form-control" />
+                <span asp-validation-for="Matricula" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FuncaoBordo)
+            </dt>
+            <dd>
+                <input asp-for="FuncaoBordo" class="form-control" />
+                <span asp-validation-for="FuncaoBordo" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FuncaoContrato)
+            </dt>
+            <dd>
+                <input asp-for="FuncaoContrato" class="form-control" />
+                <span asp-validation-for="FuncaoContrato" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Empresa)
+            </dt>
+            <dd>
+                <input asp-for="Empresa" class="form-control" />
+                <span asp-validation-for="Empresa" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </dt>
+            <dd>
+                <input asp-for="Endereco" class="form-control" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </dt>
+            <dd>
+                <input asp-for="Telefone" class="form-control" />
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+            </dd>
 
-                </dt>
-                <dd>
-                    <input class="form-check-input" asp-for="Admin" /> @Html.DisplayNameFor(model => model.Admin)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Ativo)
-                </dt>
-                <dd>
-                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Genero)
-                </dt>
-                <dd>
-                    <input asp-for="Genero" class="form-control" />
-                    <span asp-validation-for="Genero" class="text-danger"></span>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Admissao)
-                </dt>
-                <dd>
-                    <input asp-for="Admissao" class="form-control" />
-                    <span asp-validation-for="Admissao" class="text-danger"></span>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.DoB)
-                </dt>
-                <dd>
-                    <input asp-for="DoB" class="form-control" />
-                    <span asp-validation-for="DoB" class="text-danger"></span>
-                </dd>
-                <dt>
-
-                </dt>
-                <dd>
-                    <input type="submit" value="Salvar" class="btn btn-primary" />
-                </dd>
-            </div>
-          <div class="col-md-2">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Nome)
-                </dt>
-                <dd>
-                    <input type="file" class="custom-file-input" id="ImgFotoUpload" asp-for="ImgFotoUpload" />
-                    <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgFotoUpload"></label>
-                    <label style="display: none" id="ImgFotoUploadNome"></label>
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Unidade)
-                </dt>
-                <dd>
-                    <input type="file" class="custom-file-input" id="ImgSignUpload" asp-for="ImgSignUpload" />
-                    <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgSignUpload"></label>
-                    <label style="display: none" id="ImgSignUploadNome"></label>
-                    <span asp-validation-for="Unidade" class="text-danger"></span>
-                </dd>
-              
-            </div>
-        </dl>
-
+            <dt>
+                @Html.DisplayNameFor(model => model.Nacionalidade)
+            </dt>
+            <dd>
+                <input asp-for="Nacionalidade" class="form-control" />
+                <span asp-validation-for="Nacionalidade" class="text-danger"></span>
+            </dd>
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Admin)*@
+            </dt>
+            <dd>
+                <input class="form-check-input checkEdit" asp-for="Admin" /> @Html.DisplayNameFor(model => model.Admin)
+            </dd>
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Ativo)*@
+            </dt>
+            <dd>
+                <input class="form-check-input checkEdit" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Genero)
+            </dt>
+            <dd>
+                <input asp-for="Genero" class="form-control" />
+                <span asp-validation-for="Genero" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Admissao)
+            </dt>
+            <dd>
+                <input asp-for="Admissao" class="form-control" />
+                <span asp-validation-for="Admissao" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DoB)
+            </dt>
+            <dd>
+                <input asp-for="DoB" class="form-control" />
+                <span asp-validation-for="DoB" class="text-danger"></span>
+            </dd>
+          </dl>
+            <input type="submit" value="Salvar" class="btn btn-primary" />
     </form>
-   
 </div>
-<a asp-action="Index">Back to List</a>
+<a asp-action="Index">Voltar</a>
 
 
 @section Scripts {

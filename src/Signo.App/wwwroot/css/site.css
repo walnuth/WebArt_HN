@@ -82,12 +82,42 @@ textarea {
     max-width: 400px;
 }
 
+ul {
+    list-style-type: none;
+   
+}
+li ul{
+    height: 0;
+    overflow: hidden;
+    transition-property: height;
+    transition-duration: 2s;
+}
+li:hover {
+    background-color: #ccc;
+}
+
+    li:hover ul {
+        height: 5rem;
+        line-height: .5rem;
+       
+    }
+li:hover ul li{
+    margin: 0;
+    padding: 0;
+}
+
+li ul li:hover {
+    background-color: #aaa;
+    color: #ffffff;
+}
+
+
+
 /*a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
 }*/
-
 /* Provide sufficient contrast against white background */
 /*a {
     color: #0366d6;
@@ -104,7 +134,6 @@ textarea {
     background-color: #1b6ec2;
     border-color: #1861ac;
 }*/
-
 /* Sticky footer styles
 -------------------------------------------------- */
 /**, html {
@@ -135,7 +164,7 @@ button.accept-policy {
     font-size: 1rem;
     line-height: inherit;
 }*/
-.imgBETA{
+.imgBETA {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -176,9 +205,11 @@ button.accept-policy {
 .THIndex {
     width: 20%;
 }
+
 btnIntIndexAdd {
     horiz-align: right;
 }
+
 .DivHarryIndex {
     align-items: flex-start;
 }
@@ -187,7 +218,7 @@ btnIntIndexAdd {
 
 .btnIntIndexAdd {
     color: #fff;
-    background-image: linear-gradient(rgb(255, 187, 221), rgb(255, 121, 188) 50%, rgb(255, 0, 128));
+    background-image: linear-gradient(rgb(255, 255, 255), rgb(112, 0, 150) 50%, rgb(112, 0, 236));
     border: .5px solid black;
     align-self: end;
 }
@@ -196,8 +227,7 @@ btnIntIndexAdd {
         color: black;
         background-color: rgb(128,0,255);
         border: .5px solid black;
-        background-image: linear-gradient(rgb(128,0,255),rgb(255,121,188) 50%, rgb(255,187,221));
-       
+        background-image: linear-gradient(rgb(128,0,255),rgb(128,150,255) 50%, rgb(255,255,255));
     }
 
 
@@ -206,13 +236,14 @@ btnIntIndexAdd {
     background-color: #ddd;
 }
 
-.headerHarry{
+.headerHarry {
     background-color: #aaa;
 }
 
 .footer {
     background-color: #aaa;
 }
+
 .container {
     width: 100%;
     padding-right: 5px;
@@ -220,8 +251,8 @@ btnIntIndexAdd {
     margin-right: auto;
     margin-left: auto;
 }
+
 .containerH {
-   
     position: relative;
 }
 
@@ -229,13 +260,11 @@ btnIntIndexAdd {
 .tabelaIntegrante {
     display: block;
     margin: 0;
-  white-space: nowrap;
+    white-space: nowrap;
     text-align: left;
     font-size: 12px;
-     position: relative;
- 
+    position: relative;
     bottom: 4%;
-  
 }
 
 
@@ -246,7 +275,7 @@ btnIntIndexAdd {
 
 #tabelaIntegrante tr th {
     margin: 0;
-    padding:5px;
+    padding: 5px;
     white-space: nowrap;
     text-align: left;
     font-size: 12px;
@@ -258,7 +287,6 @@ btnIntIndexAdd {
     white-space: nowrap;
     font-size: 12px;
     text-align: left;
-   
 }
 
 /*.btn {
@@ -270,17 +298,17 @@ btnIntIndexAdd {
 .fa-search {
     font-size: 12px;
 }
+
 .fa-pencil-alt {
     font-size: 12px;
-   
 }
+
 .fa-lock-open {
     font-size: 12px;
-  
 }
+
 .fa-trash {
     font-size: 12px;
-   
 }
 
 /*#tabelaIntegrante {

@@ -15,7 +15,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
 
-            <img src="~/imagens/logo png signo.png" style="width: 7%; height: 7%;"/>
+            <img src="~/imagens/logo png signo.png" style="width: 7%; height: 7%; " />
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -24,15 +24,29 @@
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <partial name="_LoginPartial"/>
                 <ul class="navbar-nav flex-grow-1">
+                   
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Integrantes" asp-action="Index">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Integrantes" asp-action="Index">Integrantes</a>
+
+                        <a class="nav-link text-dark">Sistemas</a>
+                        <ul id="listaSistemas">
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">PTW</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Integrantes" asp-action="Index">Convés</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Marinha</a>
+                            </li>
+                        </ul>
                     </li>
+
                 </ul>
             </div>
         </div>

@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Entrar</button>
                 </div>
-                <div class="form-group">
+                <div >
                     <p>
                         <a id="forgot-password" asp-page="./ForgotPassword">Esqueceu sua Senha?</a>
                     </p>
@@ -46,16 +46,17 @@
             </form>
         </section>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+    <div class="col-md-6 col-md-offset-2" style="horiz-align: center;" >
         <section>
-            <h4 style="text-align: center">BEM-VINDO DE VOLTA!</h4>
+            <h4 style="text-align: center">Bem-vindo de volta!</h4>
             <hr />
+            <img src="~/imagens/LOGO SIGNO BETA.png" alt="Signo App" class="imgBETA" id="imgBETA" />
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
                         <p>
-                           
+
                         </p>
                     </div>
                 }

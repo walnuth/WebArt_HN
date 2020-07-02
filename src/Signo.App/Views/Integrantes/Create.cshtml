@@ -119,24 +119,22 @@
 
         </dl>
 
-        <div class="col-md-4" style="margin-left:0; padding-left:0">
+        <div class="col-md-12" style="margin: 0; padding: 0;">
+            <label asp-for="ImgFotoUpload" class="control-label"></label>
+            <div class="custom-file" id="custom-file1" style="margin: 0; padding: 0;">
 
-            @Html.DisplayNameFor(model => model.ImgFoto)
-           
-            <div class="col-md-2"  style="margin-left:0; padding-left:0">
                 <input type="file" class="custom-file-input" id="ImgFotoUpload" asp-for="ImgFotoUpload" />
                 <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgFotoUpload"></label>
                 <label style="display: none" id="ImgFotoUploadNome"></label>
             </div>
-            <br />
-
-            @Html.DisplayNameFor(model => model.ImgSign)
-            <div class="col-md-2"  style="margin-left:0; padding-left:0">
-                <input type="file" class="custom-file-input" id="ImgSignUpload" asp-for="ImgSignUpload" />
+            <label asp-for="ImgSignUpload" class="control-label"></label>
+            <div class="custom-file" id="custom-file1">
+                <label asp-for="ImgSignUpload" class="control-label"></label>
+                <input type="file" class="custom-file-input" asp-for="ImgSignUpload" />
                 <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgSignUpload"></label>
-                <label  style="display: none" id="ImgSignUploadNome"></label>
+                <label style="display: none" id="ImgSignUploadNome"></label>
             </div>
-
+          
         </div>
 
 

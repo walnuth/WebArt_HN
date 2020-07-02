@@ -148,7 +148,7 @@ button.accept-policy {
     align-items: center;
 }
 
-.labelUpload {
+/*.labelUpload {
     position: absolute;
     left: 100px;
     top: 10px;
@@ -161,7 +161,7 @@ button.accept-policy {
 }
 .checkEdit {
    
-}
+}*/
 
 
 .imgRound {
@@ -187,11 +187,9 @@ btnIntIndexAdd {
 
 .btnIntIndexAdd {
     color: #fff;
-    background-image: linear-gradient(rgb(255,187,221),rgb(255,121,188) 50%, rgb(255,0,128));
+    background-image: linear-gradient(rgb(255, 187, 221), rgb(255, 121, 188) 50%, rgb(255, 0, 128));
     border: .5px solid black;
-    position: absolute;
-    left: 87.56%;
-    bottom: 13%;
+    align-self: end;
 }
 
     .btnIntIndexAdd:hover {

@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Routing.Matching;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-using Signo.App.Data;
 using Signo.App.ViewModels;
 using Signo.Business.Interfaces;
 using Signo.Business.Models;
@@ -205,11 +199,13 @@ namespace Signo.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IntegranteViewModel integranteViewModel)
         {
+            IdentityUser usr = await GetCurrentUserAsync();
+            integranteViewModel.Id = Guid.Parse(usr.Id);
 
-            if (ModelState.IsValid)
+            if (integranteViewModel != null)
             {
 
-                IdentityUser usr = await GetCurrentUserAsync();
+                //IdentityUser usr = await GetCurrentUserAsync();
 
 
                 var imgPrefixo = Guid.Parse(usr.Id) + "_Foto";
@@ -226,16 +222,14 @@ namespace Signo.App.Controllers
                     return View(integranteViewModel);
                 }
                 integranteViewModel.ImgFoto =
-                    imgPrefixo + Path.GetExtension(integranteViewModel.ImgSignUpload.FileName);
+                    imgPrefixo + ".JPG";
 
-
-
+              
                 if (!await UploadArquivoSignFoto(integranteViewModel.ImgSignUpload, imgPrefixo2))
                 {
                     return View(integranteViewModel);
                 }
-                integranteViewModel.ImgSign =
-                    imgPrefixo2 + Path.GetExtension(integranteViewModel.ImgSignUpload.FileName);
+                integranteViewModel.ImgSign = imgPrefixo + ".JPG";
 
                 var integranteMapped = _mapper.Map<Integrante>(integranteViewModel);
                 integranteMapped.Id = Guid.Parse(usr.Id);

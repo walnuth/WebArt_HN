@@ -15,19 +15,19 @@
 
         <img src="~/imgFotos/@Model.ImgFoto" alt="@Model.ImgFoto" style="width: 150px; height: 214px" class="imgRound" />
 
-        <div class="col-md-2" id="divUpload">
-            <input type="file" class="custom-file-input" id="ImgFotoUpload" asp-for="ImgFotoUpload" />
-            <label data-browse="Procurar" style="width: 50%" class="custom-file-label labelUpload" for="ImgFotoUpload"></label>
-            <label style="display: none" class="labelUpload2" id="ImgFotoUploadNome"></label>
-        </div>
+        @*<div class="col-md-2" id="divUpload">
+                <input type="file" class="custom-file-input" id="ImgFotoUpload" asp-for="ImgFotoUpload" />
+                <label data-browse="Procurar" style="width: 50%" class="custom-file-label labelUpload" for="ImgFotoUpload"></label>
+                <label style="display: none" class="labelUpload2" id="ImgFotoUploadNome"></label>
+            </div>*@
         <br />
 
         <img src="~/imgAss/@Model.ImgSign" alt="@Model.ImgFoto" style="width: 107px; height: 75px" class="imgRound" />
-        <div class="col-md-2">
-            <input type="file" class="custom-file-input" id="ImgSignUpload" asp-for="ImgSignUpload" />
-            <label data-browse="Procurar" style="width: 50%" class="custom-file-label labelUpload" for="ImgSignUpload"></label>
-            <label class="labelUpload2" style="display: none" id="ImgSignUploadNome"></label>
-        </div>
+        @*<div class="col-md-2">
+                <input type="file" class="custom-file-input" id="ImgSignUpload" asp-for="ImgSignUpload" />
+                <label data-browse="Procurar" style="width: 50%" class="custom-file-label labelUpload" for="ImgSignUpload"></label>
+                <label class="labelUpload2" style="display: none" id="ImgSignUploadNome"></label>
+            </div>*@
 
     </div>
 
@@ -136,8 +136,26 @@
                 <input asp-for="DoB" class="form-control" />
                 <span asp-validation-for="DoB" class="text-danger"></span>
             </dd>
-          </dl>
-            <input type="submit" value="Salvar" class="btn btn-primary" />
+        </dl>
+        <div class="col-md-12" style="margin: 0; padding: 0;">
+
+            <label asp-for="ImgFotoUpload" class="control-label"></label>
+            <div class="custom-file" id="custom-file1" style="margin: 0; padding: 0;">
+                <input type="file" class="custom-file-input" id="ImgFotoUpload" asp-for="ImgFotoUpload"/>
+                <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgFotoUpload"></label>
+                <label style="display: none" id="ImgFotoUploadNome"></label>
+            </div>
+
+            <label asp-for="ImgSignUpload" class="control-label"></label>
+            <div class="custom-file" id="custom-file1">
+                <label asp-for="ImgSignUpload" class="control-label"></label>
+                <input type="file" class="custom-file-input" asp-for="ImgSignUpload"/>
+                <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgSignUpload"></label>
+                <label style="display: none" id="ImgSignUploadNome"></label>
+            </div>
+            <input type="submit" value="Salvar" class="btn btn-primary" style="padding-top: 5px;"/>
+        </div>
+
     </form>
 </div>
 <a asp-action="Index">Voltar</a>

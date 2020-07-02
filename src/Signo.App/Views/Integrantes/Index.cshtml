@@ -10,7 +10,8 @@
 <hr />
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="containerH">
+    <div class="container row">
+        <a class="btnIntIndexAdd btn" asp-action="Create" style="font-size: 70%;">Inserir Integrante</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -19,9 +20,9 @@
 
         @using (Html.BeginForm())
         {
-
-            <table class="tabelaIntegrante">
-                <thead>
+          
+                <table class="tabelaIntegrante">
+                    <thead>
                     <tr>
                         <th>Ativos?</th>
                         <th>Não-Ativos?</th>
@@ -31,44 +32,40 @@
                         <th>Função a Bordo:</th>
 
                     </tr>
-                </thead>
-                <tr>
+                    </thead>
+                    <tr>
 
-                    <td>
-                        @Html.RadioButton("searchAtivo",true)
-                    </td>
-                    <td>
-                        @Html.RadioButton("searchNaoAtivo", true)
-                    </td>
-                    <td>
+                        <td>
+                            @Html.RadioButton("searchAtivo",true)
+                        </td>
+                        <td>
+                            @Html.RadioButton("searchNaoAtivo", true)
+                        </td>
+                        <td>
                       
-                    </td>
-                    <td>
-                        @Html.TextBox("searchStrNome")
-                    </td>
-                    <td>
-                        @Html.TextBox("searchStrUnidade")
-                    </td>
-                    <td>
-                        @Html.TextBox("searchStrFuncaoBordo")
-                    </td>
-                    <td>
-                        <input class="btn btn-info" type="submit" value="Filtrar" style="font-size: 70%" />
+                        </td>
+                        <td>
+                            @Html.TextBox("searchStrNome")
+                        </td>
+                        <td>
+                            @Html.TextBox("searchStrUnidade")
+                        </td>
+                        <td>
+                            @Html.TextBox("searchStrFuncaoBordo")
+                        </td>
+                        <td>
+                            <input class="btn btn-info" type="submit" value="Filtrar" style="font-size: 70%" />
                         
-                    </td>
+                        </td>
+                    </tr>
 
-
-                </tr>
-
-            </table>
-
+                </table>
+           
+          
+              
         }
-
+      
     </div>
-
-    <a class="btnIntIndexAdd btn" asp-action="Create" style="font-size: 70%">Inserir Integrante</a>
-
-
 </nav>
 
 

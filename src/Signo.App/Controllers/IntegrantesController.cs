@@ -221,8 +221,7 @@ namespace Signo.App.Controllers
                 {
                     return View(integranteViewModel);
                 }
-                integranteViewModel.ImgFoto =
-                    imgPrefixo + ".JPG";
+                integranteViewModel.ImgFoto = imgPrefixo + ".JPG";
 
               
                 if (!await UploadArquivoSignFoto(integranteViewModel.ImgSignUpload, imgPrefixo2))
@@ -274,10 +273,10 @@ namespace Signo.App.Controllers
 
             if (ModelState.IsValid)
             {
-                var imgPrefixo = id + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss",
-                    CultureInfo.InvariantCulture) + "_Foto";
-                var imgPrefixo2 = id + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss",
-                    CultureInfo.InvariantCulture) + "_Ass";
+              
+
+                var imgPrefixo = id + "_Foto";
+                var imgPrefixo2 = id + "_Ass";
 
                 var integranteImgs = await _integranteRepository.ObterPorId(id);
                 integrante.ImgFoto = integranteImgs.ImgFoto;

@@ -17,7 +17,7 @@ using Signo.Business.Models;
 
 namespace Signo.App.Controllers
 {
-    public class IntegrantesController : Controller
+    public class IntegrantesController : BaseController
     {
 
         private readonly IMapper _mapper;
@@ -46,13 +46,13 @@ namespace Signo.App.Controllers
 
 
 
-        public async Task<IActionResult> Index(string sortOrder, 
-            string searchStrNome, 
-            string searchStrUnidade, 
+        public async Task<IActionResult> Index(string sortOrder,
+            string searchStrNome,
+            string searchStrUnidade,
             string searchStrFuncaoBordo,
             bool searchNaoAtivo,
             bool searchAtivo)
-        
+
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.UnidadeSortParm = sortOrder == "Unidade" ? "unidade_desc" : "Unidade";
@@ -67,9 +67,9 @@ namespace Signo.App.Controllers
 
 
             IEnumerable<Integrante> integrante = from s in integranteS
-                select s;
+                                                 select s;
 
-            
+
             if (!String.IsNullOrEmpty(searchStrNome) & !String.IsNullOrEmpty(searchStrUnidade) & !String.IsNullOrEmpty(searchStrFuncaoBordo))
             {
                 integrante = integrante.Where(s => s.Nome.Contains(searchStrNome) &
@@ -117,9 +117,9 @@ namespace Signo.App.Controllers
             switch (sortOrder)
             {
                 case "name_desc":
-                   
+
                     integrante = integrante.OrderByDescending(s => s.Nome);
-                   
+
                     break;
                 case "Unidade":
                     integrante = integrante.OrderBy(s => s.Unidade);
@@ -155,10 +155,10 @@ namespace Signo.App.Controllers
                     integrante = integrante.OrderBy(s => s.Nome);
                     break;
             }
-            if (searchAtivo==true)
+            if (searchAtivo == true)
             {
                 integrante = integrante.Where(s => s.Ativo == true);
-               
+
             }
             else if (searchNaoAtivo == true)
             {
@@ -223,7 +223,7 @@ namespace Signo.App.Controllers
                 }
                 integranteViewModel.ImgFoto = imgPrefixo + ".JPG";
 
-              
+
                 if (!await UploadArquivoSignFoto(integranteViewModel.ImgSignUpload, imgPrefixo2))
                 {
                     return View(integranteViewModel);
@@ -273,7 +273,7 @@ namespace Signo.App.Controllers
 
             if (ModelState.IsValid)
             {
-              
+
 
                 var imgPrefixo = id + "_Foto";
                 var imgPrefixo2 = id + "_Ass";
@@ -349,8 +349,17 @@ namespace Signo.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
+            IdentityUser usr = await _userManager.FindByIdAsync(id.ToString());
+            if (usr != null)
+            {
+                var filePrefixo = id.ToString();
+                ApagaFotoUser(filePrefixo);
+                ApagaAssUser(filePrefixo);
+                await _userManager.DeleteAsync(usr);
+                await _integranteRepository.Remover(id);
+            }
 
-            await _integranteRepository.Remover(id);
+
 
             return RedirectToAction(nameof(Index));
         }
@@ -415,7 +424,7 @@ namespace Signo.App.Controllers
 
             string claimType = integranteViewModel.ManipulateUserClaimsType;
             string claimValue = integranteViewModel.ManipulateUserClaimsValue;
-           
+
 
             var integrante = await _integranteRepository.ObterPorId(id);
             var integranteMapped = _mapper.Map<IntegranteViewModel>(integrante);
@@ -447,7 +456,7 @@ namespace Signo.App.Controllers
 
             string claimType = integranteViewModel.ManipulateUserClaimsType.ToUpper();
             string claimValue = integranteViewModel.ManipulateUserClaimsValue.ToUpper();
-          
+
 
             Claim claimUsr = new Claim(claimType, claimValue);
             await _userManager.AddClaimAsync(usr, claimUsr);
@@ -491,7 +500,7 @@ namespace Signo.App.Controllers
             {
 
                 {
-                    System.IO.File.Delete(path);
+                    ApagaFotoUser(imgPrefixo);
                 }
             }
 
@@ -516,7 +525,7 @@ namespace Signo.App.Controllers
             {
 
                 {
-                    System.IO.File.Delete(path);
+                    ApagaAssUser(imgPrefixo2);
                 }
             }
 
@@ -525,6 +534,41 @@ namespace Signo.App.Controllers
                 await arquivo.CopyToAsync(stream);
             }
 
+            return true;
+        }
+
+
+        private bool ApagaFotoUser(string filePrefixo)
+        {
+
+            var pathFotos = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgFotos",
+                 filePrefixo + "_Foto.JPG");       /*arquivo.FileName);*/
+
+            if (System.IO.File.Exists(pathFotos))
+            {
+
+                {
+                    System.IO.File.Delete(pathFotos);
+                }
+            }
+
+
+
+            return true;
+        }
+        private bool ApagaAssUser(string filePrefixo)
+        {
+
+            var pathAss = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgAss",
+                filePrefixo + "_Ass.JPG");       /*arquivo.FileName);*/
+
+            if (System.IO.File.Exists(pathAss))
+            {
+
+                {
+                    System.IO.File.Delete(pathAss);
+                }
+            }
             return true;
         }
 

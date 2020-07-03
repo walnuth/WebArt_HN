@@ -23,6 +23,14 @@
         "webfonts/fa-solid-900.woff",
         "webfonts/fa-solid-900.woff2"
       ]
+    },
+    {
+      "library": "globalize@1.5.0",
+      "destination": "wwwroot/lib/jquery-validation/",
+      "files": [
+        "globalize.min.js",
+        "globalize.js"
+      ]
     }
   ]
 }

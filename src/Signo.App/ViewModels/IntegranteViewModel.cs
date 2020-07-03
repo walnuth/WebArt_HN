@@ -66,10 +66,14 @@ namespace Signo.App.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public int Genero { get; set; }
 
+
+
         [DisplayName("Data da Última Edição")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Admissao { get; set; }
 
         [DisplayName("Data de Nascimento")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public DateTime DoB { get; set; }
 

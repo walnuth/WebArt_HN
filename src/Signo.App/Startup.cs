@@ -1,9 +1,12 @@
+using System.Collections.Generic;
+using System.Globalization;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,10 +21,22 @@ namespace Signo.App
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostEnvironment hostEnvironment)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(hostEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
+                .AddEnvironmentVariables();
+
+            if (hostEnvironment.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            Configuration = builder.Build();
         }
+
 
         public IConfiguration Configuration { get; }
 
@@ -37,13 +52,12 @@ namespace Signo.App
 
             services.ResolveDependencies();
             services.AddAutoMapper(typeof(Startup));
-
+            services.AddMvcConfiguration();
 
             services.AddIdentityConfiguration(Configuration);
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IEmailSender, EmailSender>();
+           
             services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
@@ -61,6 +75,22 @@ namespace Signo.App
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            var defaultCulture = new CultureInfo("pt-BR");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(defaultCulture),
+                //parenteses significa que cabe UM ELEMENTO
+                SupportedCultures = new List<CultureInfo> { defaultCulture },
+                //chaves significa que cabe uma LISTA
+                SupportedUICultures = new List<CultureInfo> { defaultCulture }
+                //chaves significa que cabe uma LISTA
+            };
+
+
+
+            app.UseRequestLocalization(localizationOptions);
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -47,7 +47,7 @@ namespace Signo.App.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "A {0} deve ter entre {2} e no máximo {1} caracteres.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "A {0} deve ter entre {2} e no máximo {1} caracteres.", MinimumLength = 4)]
             [DataType(DataType.Password)]
             [Display(Name = "Senha")]
             public string Password { get; set; }

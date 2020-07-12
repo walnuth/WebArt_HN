@@ -230,6 +230,8 @@ namespace Signo.App.Controllers
                 }
                 integranteViewModel.ImgSign = imgPrefixo + ".JPG";
 
+
+                UpperIntegranteVm(integranteViewModel);
                 var integranteMapped = _mapper.Map<Integrante>(integranteViewModel);
                 integranteMapped.Id = Guid.Parse(usr.Id);
                 integranteMapped.Admissao = DateTime.Now;
@@ -309,6 +311,12 @@ namespace Signo.App.Controllers
                 try
                 {
                     integrante.Admissao = DateTime.Now;
+
+                    UpperIntegranteVm(integrante);
+
+
+
+
                     var integranteMapped = _mapper.Map<Integrante>(integrante);
                     await _integranteRepository.Atualizar(integranteMapped);
                 }
@@ -572,6 +580,18 @@ namespace Signo.App.Controllers
             return true;
         }
 
+        private IntegranteViewModel UpperIntegranteVm(IntegranteViewModel integranteView)
+        {
+            integranteView.Nome = integranteView.Nome.ToUpper();
+            integranteView.Empresa = integranteView.Empresa.ToUpper();
+            integranteView.Endereco = integranteView.Endereco.ToUpper();
+            integranteView.FuncaoBordo = integranteView.FuncaoBordo.ToUpper();
+            integranteView.FuncaoContrato = integranteView.FuncaoContrato.ToUpper();
+            integranteView.Nacionalidade = integranteView.Nacionalidade.ToUpper();
+            
+           
 
+            return (integranteView);
+        }
     }
 }

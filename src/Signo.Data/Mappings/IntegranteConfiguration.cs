@@ -39,13 +39,39 @@ namespace Signo.Data.Mappings
                 .HasColumnType("varchar(150)");
 
 
-            builder.Property(p => p.Endereco)
+           
+
+            builder.Property(p => p.CepEndereco)
+
+                .HasColumnType("varchar(8)");
+
+            builder.Property(p => p.LogradouroEndereco)
+                .IsRequired(false)
+                .HasColumnType("varchar(350)");
+
+            builder.Property(p => p.BairroEndereco)
+                .IsRequired(false)
+                .HasColumnType("varchar(200)");
+
+            builder.Property(p => p.LocalidadeEndereco)
+                .IsRequired(false)
+                .HasColumnType("varchar(200)");
+
+            builder.Property(p => p.UfEndereco)
+                .IsRequired(false)
+                .HasColumnType("varchar(50)");
+
+            builder.Property(p => p.NumeroEndereco)
+                .IsRequired(false)
+                .HasColumnType("varchar(150)");
+
+            builder.Property(p => p.ComplementoEndereco)
                 .IsRequired(false)
                 .HasColumnType("varchar(350)");
 
             builder.Property(p => p.Telefone)
-                .IsRequired(false)
-                .HasColumnType("varchar(150)");
+                    .IsRequired(false)
+                    .HasColumnType("varchar(150)");
 
 
             builder.Property(p => p.ImgFoto)
@@ -73,7 +99,7 @@ namespace Signo.Data.Mappings
 
 
             builder.Property(p => p.Admissao)
-              
+
                 .HasColumnType("datetime");
 
             builder.Property(p => p.DoB)
@@ -83,7 +109,7 @@ namespace Signo.Data.Mappings
             builder.Property(p => p.Genero)
                 .IsRequired()
                 .HasColumnType("int");
-               
+
 
 
             builder.ToTable("Integrantes");

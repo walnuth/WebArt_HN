@@ -3,16 +3,12 @@ using System.Globalization;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Signo.App.Configurations;
-using Signo.App.Data;
 using Signo.App.Services;
 using Signo.Data.Context;
 
@@ -48,7 +44,8 @@ namespace Signo.App
         {
             services.AddDbContext<MeuDbContext>(options =>
                  options.UseSqlServer(
-                     Configuration.GetConnectionString("DefaultConnection")));
+                     Configuration.GetConnectionString("DefaultConnection")
+                     ));
 
             services.ResolveDependencies();
             services.AddAutoMapper(typeof(Startup));

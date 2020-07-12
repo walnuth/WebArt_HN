@@ -62,12 +62,55 @@
                 <span asp-validation-for="Empresa" class="text-danger"></span>
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Endereco)
+                @Html.DisplayNameFor(model => model.CepEndereco)
             </dt>
             <dd>
-                <input asp-for="Endereco" class="form-control" />
-                <span asp-validation-for="Endereco" class="text-danger"></span>
+                <input asp-for="CepEndereco" class="form-control" />
+                <span asp-validation-for="CepEndereco" class="text-danger"></span>
             </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LogradouroEndereco)
+            </dt>
+            <dd>
+                <input asp-for="LogradouroEndereco" class="form-control" />
+                <span asp-validation-for="LogradouroEndereco" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NumeroEndereco)
+            </dt>
+            <dd>
+                <input asp-for="NumeroEndereco" class="form-control" />
+                <span asp-validation-for="NumeroEndereco" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ComplementoEndereco)
+            </dt>
+            <dd>
+                <input asp-for="ComplementoEndereco" class="form-control" />
+                <span asp-validation-for="ComplementoEndereco" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BairroEndereco)
+            </dt>
+            <dd>
+                <input asp-for="BairroEndereco" class="form-control" />
+                <span asp-validation-for="BairroEndereco" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LocalidadeEndereco)
+            </dt>
+            <dd>
+                <input asp-for="LocalidadeEndereco" class="form-control" />
+                <span asp-validation-for="LocalidadeEndereco" class="text-danger"></span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UfEndereco)
+            </dt>
+            <dd>
+                <input asp-for="UfEndereco" class="form-control" />
+                <span asp-validation-for="UfEndereco" class="text-danger"></span>
+            </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.Telefone)
             </dt>
@@ -106,14 +149,14 @@
                 @Html.DisplayNameFor(model => model.Admissao)
             </dt>
             <dd>
-                @Html.TextBoxFor(model => model.Admissao,"{0:dd/MM/yyyy}", new { @class = "form-control"})
+                @Html.TextBoxFor(model => model.Admissao, "{0:dd/MM/yyyy}", new { @class = "form-control" })
                 <span asp-validation-for="Admissao" class="text-danger"></span>
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.DoB)
             </dt>
             <dd>
-                @Html.TextBoxFor(model => model.DoB,"{0:dd/MM/yyyy}", new { @class = "form-control"})
+                @Html.TextBoxFor(model => model.DoB, "{0:dd/MM/yyyy}", new { @class = "form-control" })
                 <span asp-validation-for="DoB" class="text-danger"></span>
             </dd>
 
@@ -134,7 +177,7 @@
                 <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImgSignUpload"></label>
                 <label style="display: none" id="ImgSignUploadNome"></label>
             </div>
-          
+
         </div>
 
 
@@ -171,6 +214,9 @@
 
         $("#ImgSignUpload").attr("data-val", "true");
         $("#ImgSignUpload").attr("data-val-required", "Preencha o campo Imagem");
+    </script>
+    <script>
+        BuscaCep();
     </script>
 
 

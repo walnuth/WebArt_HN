@@ -2,15 +2,15 @@
 
 namespace Signo.Data.Migrations
 {
-    public partial class ENUMRIGS : Migration
+    public partial class CepScript : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Unidade",
+                name: "CepEndereco",
                 table: "Integrantes",
-                type: "varchar(10)",
-                nullable: false,
+                type: "varchar(8)",
+                nullable: true,
                 oldClrType: typeof(int),
                 oldType: "int");
         }
@@ -18,12 +18,13 @@ namespace Signo.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                name: "Unidade",
+                name: "CepEndereco",
                 table: "Integrantes",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(string),
-                oldType: "varchar(10)");
+                oldType: "varchar(8)",
+                oldNullable: true);
         }
     }
 }

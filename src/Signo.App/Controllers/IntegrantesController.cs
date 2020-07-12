@@ -584,7 +584,12 @@ namespace Signo.App.Controllers
         {
             integranteView.Nome = integranteView.Nome.ToUpper();
             integranteView.Empresa = integranteView.Empresa.ToUpper();
-            integranteView.Endereco = integranteView.Endereco.ToUpper();
+            integranteView.LogradouroEndereco = integranteView.LogradouroEndereco.ToUpper();
+            integranteView.LocalidadeEndereco = integranteView.LocalidadeEndereco.ToUpper();
+            integranteView.BairroEndereco = integranteView.BairroEndereco.ToUpper();
+            integranteView.NumeroEndereco = integranteView.NumeroEndereco.ToUpper();
+            integranteView.ComplementoEndereco = integranteView.ComplementoEndereco.ToUpper();
+            integranteView.UfEndereco = integranteView.UfEndereco.ToUpper();
             integranteView.FuncaoBordo = integranteView.FuncaoBordo.ToUpper();
             integranteView.FuncaoContrato = integranteView.FuncaoContrato.ToUpper();
             integranteView.Nacionalidade = integranteView.Nacionalidade.ToUpper();

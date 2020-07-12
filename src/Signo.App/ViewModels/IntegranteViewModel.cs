@@ -41,14 +41,32 @@ namespace Signo.App.ViewModels
         [StringLength(150, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 2)]
         public string Empresa { get; set; }
 
-        [DisplayName("Endereço")]
-        [StringLength(350, ErrorMessage = "O campo {0} deve no máximo {1} caracteres")]
-        public string Endereco { get; set; }
+
+
+        [DisplayName("CEP")]
+
+        public int CepEndereco { get; set; }
+
+        [DisplayName("Logradouro")]
+        public string LogradouroEndereco { get; set; }
+
+        [DisplayName("Número")]
+        public string NumeroEndereco { get; set; }
+
+        [DisplayName("Complemento")]
+        public string ComplementoEndereco { get; set; }
+
+        [DisplayName("Bairro")]
+        public string BairroEndereco { get; set; }
+
+        [DisplayName("Cidade")]
+        public string LocalidadeEndereco { get; set; }
+
+        [DisplayName("Estado")]
+        public string UfEndereco { get; set; }
 
         [StringLength(150, ErrorMessage = "O campo {0} deve no máximo {1} caracteres")]
         public string Telefone { get; set; }
-
-       
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [StringLength(150, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 2)]
@@ -95,12 +113,12 @@ namespace Signo.App.ViewModels
         public IEnumerable<EnumRig> Unidades { get; set; }
         public IEnumerable<IntegranteViewModel> Integrantes { get; set; }
 
-       public IEnumerable<Claim> UserClaims { get; set; }
+        public IEnumerable<Claim> UserClaims { get; set; }
 
-       [DisplayName("Sistema")]
-       public string ManipulateUserClaimsType { get; set; }
+        [DisplayName("Sistema")]
+        public string ManipulateUserClaimsType { get; set; }
 
-       [DisplayName("Ações Permitidas")]
+        [DisplayName("Ações Permitidas")]
         public string ManipulateUserClaimsValue { get; set; }
     }
 

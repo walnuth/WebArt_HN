@@ -10,8 +10,8 @@ using Signo.Data.Context;
 namespace Signo.Data.Migrations
 {
     [DbContext(typeof(MeuDbContext))]
-    [Migration("20200626210640_inicial")]
-    partial class inicial
+    [Migration("20200712165523_CepScript")]
+    partial class CepScript
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,15 +36,21 @@ namespace Signo.Data.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
+                    b.Property<string>("BairroEndereco")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("CepEndereco")
+                        .HasColumnType("varchar(8)");
+
+                    b.Property<string>("ComplementoEndereco")
+                        .HasColumnType("varchar(350)");
+
                     b.Property<DateTime>("DoB")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Empresa")
                         .IsRequired()
                         .HasColumnType("varchar(150)");
-
-                    b.Property<string>("Endereco")
-                        .HasColumnType("varchar(350)");
 
                     b.Property<string>("FuncaoBordo")
                         .IsRequired()
@@ -65,6 +71,12 @@ namespace Signo.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(300)");
 
+                    b.Property<string>("LocalidadeEndereco")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("LogradouroEndereco")
+                        .HasColumnType("varchar(350)");
+
                     b.Property<string>("Matricula")
                         .HasColumnType("varchar(50)");
 
@@ -76,11 +88,18 @@ namespace Signo.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
+                    b.Property<string>("NumeroEndereco")
+                        .HasColumnType("varchar(150)");
+
                     b.Property<string>("Telefone")
                         .HasColumnType("varchar(150)");
 
-                    b.Property<int>("Unidade")
-                        .HasColumnType("int");
+                    b.Property<string>("UfEndereco")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Unidade")
+                        .IsRequired()
+                        .HasColumnType("varchar(10)");
 
                     b.HasKey("Id");
 
